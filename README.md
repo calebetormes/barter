@@ -1,167 +1,140 @@
-# 🚀 Projeto Laravel + Vue com Herd
+# 💻 Projeto Barter – Ambiente Laravel + Vue + Herd
 
-Este repositório contém um projeto Laravel + Vue com Vite, pronto para rodar localmente usando o [Laravel Herd](https://herd.laravel.com), sem necessidade de XAMPP ou Apache.
+## 📦 1. Preparando o ambiente
 
----
+### ✅ Instalar o Node.js
+Instale direto do site oficial: [https://nodejs.org/](https://nodejs.org/)
 
-## ✅ Requisitos
+- Isso garante que o `npm` funcione sem problemas de PATH.
+- Após a instalação, **libere o PowerShell para execução de scripts**:
 
-- [Laravel Herd](https://herd.laravel.com) instalado
-- MySQL (instalado separadamente)
-- Git
-- Acesso à internet para instalar dependências
-
----
-
-## 📦 Instalação do ambiente
-
-### 1. Instale o Laravel Herd
-
-O Herd já vem com PHP, Composer, Node, Nginx e Vite configurados.
-
-➡️ [https://herd.laravel.com](https://herd.laravel.com)
-
-Após instalar:
-- Abra o **Laravel Herd**
-- Ative o PHP na interface
-
----
-🛠 Como adicionar o Node.js do Laravel Herd ao PATH (Windows)
-Se você estiver utilizando o Laravel Herd e quiser usar o Node.js e o NPM diretamente no terminal, será necessário adicionar o caminho dos binários ao PATH do sistema.
-
-📍 Passo a passo:
-Abra o Explorador de Arquivos e vá até a pasta: (copie esse caminho)
-C:\Users\SEU_USUARIO\.config\herd\bin\nvm\v23.11.0
-
-Abra as variáveis de ambiente do Windows:
-Na seção "Variáveis do Sistema", encontre a variável chamada Path e clique em Editar.
-Clique em Novo e cole o caminho copiado anteriormente:
-Clique em OK para fechar todas as janelas.
-Feche e reabra o terminal (CMD, PowerShell ou terminal do VS Code).
-
-✅ Testando
-Abra um novo terminal e digite:
-
-node -v
-npm -v
-
-Você deverá ver algo como:
-
-v23.11.0
-9.x.x
-
-### 2. Instale o MySQL (sem XAMPP)
-
-Baixe e instale o **MySQL Server** (somente) usando o instalador oficial:
-
-➡️ [https://dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/)
-
-> Durante a instalação:
-> - Configure o usuário `root`
-> - Defina uma senha (ou deixe em branco se preferir simplicidade)
+```powershell
+# Abra o PowerShell como Administrador e execute:
+Set-ExecutionPolicy RemoteSigned
+```
+- Quando perguntado, digite `S` e pressione `Enter`.
 
 ---
 
-### 3. Crie o banco de dados
+### ✅ Instalar o MySQL Server
+Você pode usar o instalador do site oficial: [https://dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/)
 
-Você pode usar o **MySQL Workbench**, **DBeaver** ou terminal para criar:
+---
+
+### ✅ Instalar o Visual Studio Code
+Baixe aqui: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+---
+
+### ✅ Instalar o [Laravel Herd](https://herd.laravel.com/)
+Instala automaticamente:
+- PHP
+- NGINX
+- Composer
+
+---
+
+✅ Com isso, seu ambiente terá:
+- ✅ PHP
+- ✅ NGINX
+- ✅ Composer
+- ✅ Node.js + npm
+- ✅ MySQL
+
+---
+
+## 🚀 2. Rodando o projeto localmente
+
+### 2.1 Criar o banco de dados
+
+Use **MySQL Workbench**, **DBeaver** ou **terminal**:
 
 ```sql
-CREATE DATABASE barter CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE barter;
 ```
 
 ---
 
-### 4. Clone o projeto
-
-No terminal:
+### 2.2 Clonar o projeto
 
 ```bash
 git clone https://github.com/calebetormes/barter.git
+cd barter
 ```
 
 ---
 
-### 5. Rode o script de instalação (opcional)
-
-Se o repositório contém um arquivo `setup.bat`, execute:
+### 2.3 Instalar dependências PHP
 
 ```bash
-setup.bat
+composer install
 ```
 
-Ou siga manualmente:
+---
+
+### 2.4 Criar o arquivo `.env`
 
 ```bash
 copy .env.example .env
-php artisan key:generate
-composer install
-npm install
-npm run dev
-php artisan migrate
 ```
 
 ---
 
-### 6. Configure o arquivo `.env`
+### 2.5 Gerar chave da aplicação
 
-Edite as variáveis de ambiente com os dados do seu banco:
+```bash
+php artisan key:generate
+```
 
-```env
-APP_NAME=Laravel
-APP_ENV=local
-APP_KEY=          # será gerada pelo artisan
-APP_DEBUG=true
-APP_URL=http://barter.test
+---
 
+### 2.6 Configurar acesso ao banco de dados
+
+No arquivo `.env`, altere as seguintes linhas:
+
+```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=barter
 DB_USERNAME=root
-DB_PASSWORD=      # sua senha
+DB_PASSWORD=   # sua senha aqui
 ```
 
 ---
 
-### 7. Acesse no navegador
+### 2.7 Instalar dependências do frontend (Vue.js + Vite)
 
-Se o projeto está na pasta `C:\www\barter`, acesse:
-
+```bash
+npm install
+npm run dev
 ```
-http://barter.test
-```
-
-> O domínio `.test` é gerenciado automaticamente pelo Herd.
 
 ---
 
-## 💡 Dicas úteis
-
-- Erro `vite: comando não encontrado`: rode `npm install`
-- Erro 500: confira se o `.env` tem `APP_KEY` e o banco está acessível
-- Permissão PowerShell: execute `Set-ExecutionPolicy RemoteSigned` como admin
-
----
-
-## 🧪 Testes e Migrations
+### 2.8 Criar as tabelas com as migrations
 
 ```bash
 php artisan migrate
-php artisan test
 ```
 
 ---
 
-## 🛠️ Tecnologias usadas
-
-- Laravel
-- Vue 3 + Vite
-- Laravel Herd (PHP, Composer, Node, Nginx)
-- MySQL
+## ✅ Pronto!
+Agora você pode acessar o sistema via:
+```
+http://barter.test
+```
+Ou, se estiver usando `artisan serve`:
+```
+http://127.0.0.1:8000
+```
 
 ---
 
-## 📌 Sobre
+📌 **Observação**: Caso esteja usando o HERD, o domínio `barter.test` será criado automaticamente.
 
-Este projeto foi configurado para facilitar o desenvolvimento local com mínimo esforço de setup. Ideal para equipes que usam Laravel no backend e Vue no frontend.
+---
+
+🧑‍💻 Feito com ♥ por [calebetormes](https://github.com/calebetormes)
+
