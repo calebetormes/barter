@@ -8,8 +8,8 @@ Instale direto do site oficial: [https://nodejs.org/](https://nodejs.org/)
 - Isso garante que o `npm` funcione sem problemas de PATH.
 - Após a instalação, **libere o PowerShell para execução de scripts**:
 
-```powershell
 # Abra o PowerShell como Administrador e execute:
+```powershell
 Set-ExecutionPolicy RemoteSigned
 ```
 - Quando perguntado, digite `S` e pressione `Enter`.
