@@ -26,6 +26,29 @@ Após instalar:
 - Ative o PHP na interface
 
 ---
+🛠 Como adicionar o Node.js do Laravel Herd ao PATH (Windows)
+Se você estiver utilizando o Laravel Herd e quiser usar o Node.js e o NPM diretamente no terminal, será necessário adicionar o caminho dos binários ao PATH do sistema.
+
+📍 Passo a passo:
+Abra o Explorador de Arquivos e vá até a pasta: (copie esse caminho)
+C:\Users\SEU_USUARIO\.config\herd\bin\nvm\v23.11.0
+
+Abra as variáveis de ambiente do Windows:
+Na seção "Variáveis do Sistema", encontre a variável chamada Path e clique em Editar.
+Clique em Novo e cole o caminho copiado anteriormente:
+Clique em OK para fechar todas as janelas.
+Feche e reabra o terminal (CMD, PowerShell ou terminal do VS Code).
+
+✅ Testando
+Abra um novo terminal e digite:
+
+node -v
+npm -v
+
+Você deverá ver algo como:
+
+v23.11.0
+9.x.x
 
 ### 2. Instale o MySQL (sem XAMPP)
 
