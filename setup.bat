@@ -8,12 +8,12 @@ echo ================================
 echo Instalando dependencias PHP...
 composer install
 
-:: 2.4 - Copia o arquivo .env
-IF NOT EXIST ".env" (
-    echo Criando arquivo .env a partir do exemplo...
-    copy .env.example .env
-) ELSE (
+:: 2.4 - Copia o arquivo .env.example para .env
+IF EXIST ".env" (
     echo Arquivo .env ja existe. Pulando esta etapa.
+) ELSE (
+    echo Criando arquivo .env a partir do exemplo...
+    powershell -Command "Copy-Item -Path '.env.example' -Destination '.env'"
 )
 
 :: 2.5 - Gera a chave da aplicação
