@@ -77,8 +77,7 @@ CREATE DATABASE barter CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 No terminal:
 
 ```bash
-git clone https://github.com/seu-usuario/seu-projeto.git
-cd seu-projeto
+git clone https://github.com/calebetormes/barter.git
 ```
 
 ---
