@@ -1,33 +1,34 @@
 @echo off
-echo ===========================================
-echo  Iniciando setup do projeto Laravel + Vue
-echo ===========================================
+title Setup Laravel - Núcleo do Projeto
+echo ================================
+echo  INICIANDO SETUP DO PROJETO
+echo ================================
 
-REM Verifica se o .env já existe
-IF EXIST .env (
-    echo .env já existe. Pulando cópia...
-) ELSE (
-    echo Copiando .env.example para .env...
-    copy .env.example .env
-)
-
-echo Gerando APP_KEY...
-php artisan key:generate
-
-echo Instalando dependências PHP via Composer...
+:: 2.3 - Instala as dependências do Laravel
+echo Instalando dependencias PHP...
 composer install
 
-echo Instalando dependências JS via npm...
-call npm install
+:: 2.4 - Copia o arquivo .env
+IF NOT EXIST ".env" (
+    echo Criando arquivo .env a partir do exemplo...
+    copy .env.example .env
+) ELSE (
+    echo Arquivo .env ja existe. Pulando esta etapa.
+)
 
-echo Rodando Vite (modo dev)...
-start npm run dev
+:: 2.5 - Gera a chave da aplicação
+echo Gerando chave do Laravel...
+php artisan key:generate
 
-echo Rodando migrations...
-php artisan migrate
+:: 2.6 - Instala dependências do Vue.js (Vite)
+echo Instalando dependencias do Vite (npm)...
+npm install
 
-echo ===========================================
-echo  Setup finalizado! 🚀
-echo  Abra o navegador: http://localhost
-echo ===========================================
+echo Iniciando o Vite...
+start cmd /k "npm run dev"
+
+echo.
+echo Setup concluido!
+echo Agora configure o banco de dados no .env e rode:
+echo     php artisan migrate
 pause
