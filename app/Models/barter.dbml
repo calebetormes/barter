@@ -1,4 +1,8 @@
-Table users {
+//--------------------------------------------------------------
+//BLOCO USERS
+//--------------------------------------------------------------
+
+Table users { //model ok - migrate ok
   id bigint [pk, increment]
   name varchar
   email varchar [unique]
@@ -11,12 +15,12 @@ Table users {
   userscol varchar
 }
 
-Table roles {
+Table roles { //model ok - migrate ok
   id int [pk, increment]
   name varchar
 }
 
-Table vendedor_gerente {
+Table vendedor_gerente { //model ok - migrate ok
   vendedor bigint [ref: > users.id]
   gerente bigint [ref: > users.id]
   indexes {
@@ -24,7 +28,10 @@ Table vendedor_gerente {
   }
 }
 
-Table produtos {
+//--------------------------------------------------------------
+//BLOCO PRODUTOS
+//--------------------------------------------------------------
+Table produtos { //migrate ok
   id int [pk, increment]
   classe int [ref: > produtos_classes.id]
   principios_ativo int [ref: > principios_ativos.id]
@@ -35,31 +42,35 @@ Table produtos {
   dose_sugerida_hectare varchar
 }
 
-Table produtos_classes {
+Table produtos_classes { //migrate ok
   id int [pk, increment]
   nome varchar
 }
 
-Table principios_ativos {
+Table principios_ativos { //migrate ok
   id int [pk, increment]
   nome varchar
 }
 
-Table marcas_comerciais {
+Table marcas_comerciais { //migrate ok
   id int [pk, increment]
   nome varchar
 }
 
-Table tipos_de_peso {
+Table tipos_de_peso { //migrate ok
   id int [pk, increment]
   tipo_peso varchar
 }
 
-Table familia {
+Table familia { //migrate ok
   id int [pk, increment]
-  familia varchar []
+  familia varchar
 }
 
+
+//--------------------------------------------------------------
+//BLOCO NEGOCIAÇÔES
+//--------------------------------------------------------------
 Table pagamentos {
   id int [pk, increment]
   data_pagamento date
