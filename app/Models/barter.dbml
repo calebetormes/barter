@@ -1,5 +1,3 @@
-//migrate ok
-//model ok
 Table users {
   id bigint [pk, increment]
   name varchar
@@ -13,15 +11,11 @@ Table users {
   userscol varchar
 }
 
-//migrate ok
-//model ok
 Table roles {
   id int [pk, increment]
   name varchar
 }
 
-//migrate ok
-//model ok
 Table vendedor_gerente {
   vendedor bigint [ref: > users.id]
   gerente bigint [ref: > users.id]
@@ -30,15 +24,14 @@ Table vendedor_gerente {
   }
 }
 
-
 Table produtos {
   id int [pk, increment]
   classe int [ref: > produtos_classes.id]
   principios_ativo int [ref: > principios_ativos.id]
   marca_comercial int [ref: > marcas_comerciais.id]
+  tipos_de_peso varchar [ref: > tipos_de_peso.id]
+  familia varchar [ref: > familia.id]
   apresentacao varchar
-  tipos_de_peso varchar [ref: > tipos_de_peso.tipo_peso]
-  familia varchar [ref: > familia.familia]
   dose_sugerida_hectare varchar
 }
 
@@ -48,21 +41,23 @@ Table produtos_classes {
 }
 
 Table principios_ativos {
-  id int [pk]
+  id int [pk, increment]
   nome varchar
 }
 
 Table marcas_comerciais {
-  id int [pk]
+  id int [pk, increment]
   nome varchar
 }
 
 Table tipos_de_peso {
-  tipo_peso varchar [pk]
+  id int [pk, increment]
+  tipo_peso varchar
 }
 
 Table familia {
-  familia varchar [pk]
+  id int [pk, increment]
+  familia varchar []
 }
 
 Table pagamentos {
