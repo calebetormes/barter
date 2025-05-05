@@ -12,7 +12,6 @@ Table users { //model ok - migrate ok
   created_at timestamp
   updated_at timestamp
   roles_id int [ref: > roles.id]
-  userscol varchar
 }
 
 Table roles { //model ok - migrate ok
