@@ -5,84 +5,70 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-/**
- * Modelo responsável por representar os usuários do sistema.
- * Este modelo é mapeado diretamente com a tabela 'users' no banco de dados.
- */
 class User extends Authenticatable
 {
+    use HasApiTokens, HasFactory, Notifiable;
 
-    // Trait que permite o uso de factories para testes e seeders
-    use HasFactory;
-
-    /**
-     * Atributos que podem ser atribuídos em massa (mass assignment).
-     *
-     * Esses são os campos que podem ser preenchidos via métodos como create() e update().
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',          // Nome do usuário
-        'email',         // E-mail do usuário
-        'password',      // Senha (armazenada de forma segura)
-        'roles_id',      // Chave estrangeira para a tabela de papéis (roles)
+        'name',
+        'email',
+        'password',
+        'role_id', // renomeado de roles_id para seguir padrão Laravel/Filament
     ];
 
-    /**
-     * Atributos que devem ser ocultados na serialização do modelo.
-     *
-     * Esses campos não aparecem quando o modelo é convertido para array ou JSON.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
-        'password',         // Nunca exibir a senha
-        'remember_token',   // Token de sessão utilizado para "lembrar de mim"
+        'password',
+        'remember_token',
     ];
 
-    /**
-     * Conversão automática de tipos de atributos.
-     *
-     * Define como os campos serão convertidos automaticamente ao serem acessados.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
-        'email_verified_at' => 'datetime', // Converte para objeto Carbon (data/hora)
-        'password' => 'hashed',            // Garante que o campo 'password' seja sempre hasheado
-        'created_at' => 'datetime',        // Conversão automática para data/hora
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
     /**
-     * Define o relacionamento deste usuário com a tabela de papéis (roles).
-     *
-     * Cada usuário pertence a um único papel.
-     *
-     * @return BelongsTo
+     * Relacionamento com o papel (role) do usuário.
      */
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role::class, 'roles_id');
+        return $this->belongsTo(Role::class);
     }
 
     /**
-     * Vendedores que este gerente supervisiona.
+     * Vendedores supervisionados por este gerente.
      */
-    public function vendedores()
+    public function vendedores(): HasMany
     {
         return $this->hasMany(VendedorGerente::class, 'gerente');
     }
 
     /**
-     * Gerentes aos quais este vendedor está vinculado.
+     * Gerentes associados a este vendedor.
      */
-    public function gerentes()
+    public function gerentes(): HasMany
     {
         return $this->hasMany(VendedorGerente::class, 'vendedor');
+    }
+
+    /**
+     * Verifica se o usuário possui o papel informado.
+     */
+    public function hasRole(string $roleName): bool
+    {
+        return $this->role && $this->role->name === $roleName;
+    }
+
+    /**
+     * Verifica se é administrador.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('admin');
     }
 }
