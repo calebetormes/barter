@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Modelo responsável por representar os usuários do sistema.
@@ -85,7 +85,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(VendedorGerente::class, 'vendedor');
     }
-
-    //testando git
-    
 }

@@ -1,0 +1,197 @@
+//migrate ok
+//model ok
+Table users {
+  id bigint [pk, increment]
+  name varchar
+  email varchar [unique]
+  email_verified_at timestamp
+  password varchar
+  remember_token varchar
+  created_at timestamp
+  updated_at timestamp
+  roles_id int [ref: > roles.id]
+  userscol varchar
+}
+
+//migrate ok
+//model ok
+Table roles {
+  id int [pk, increment]
+  name varchar
+}
+
+//migrate ok
+//model ok
+Table vendedor_gerente {
+  vendedor bigint [ref: > users.id]
+  gerente bigint [ref: > users.id]
+  indexes {
+    (vendedor, gerente) [pk]
+  }
+}
+
+
+Table produtos {
+  id int [pk, increment]
+  classe int [ref: > produtos_classes.id]
+  principios_ativo int [ref: > principios_ativos.id]
+  marca_comercial int [ref: > marcas_comerciais.id]
+  apresentacao varchar
+  tipos_de_peso varchar [ref: > tipos_de_peso.tipo_peso]
+  familia varchar [ref: > familia.familia]
+  dose_sugerida_hectare varchar
+}
+
+Table produtos_classes {
+  id int [pk, increment]
+  nome varchar
+}
+
+Table principios_ativos {
+  id int [pk]
+  nome varchar
+}
+
+Table marcas_comerciais {
+  id int [pk]
+  nome varchar
+}
+
+Table tipos_de_peso {
+  tipo_peso varchar [pk]
+}
+
+Table familia {
+  familia varchar [pk]
+}
+
+Table pagamentos {
+  id int [pk, increment]
+  data_pagamento date
+  data_entrega date
+}
+
+Table culturas {
+  nome varchar [pk]
+}
+
+Table moedas {
+  nome varchar [pk]
+  sigla varchar
+}
+
+Table pracas_cotacoes {
+  praca_cotacao varchar [pk]
+  numero varchar
+}
+
+Table negociacoes {
+  id int [pk, increment]
+  versao date
+  data_negocio date
+  GRV bigint [ref: > users.id]
+  RTV bigint [ref: > users.id]
+  cliente varchar
+  endereco_cliente varchar
+  cidade_cliente varchar
+  negociacoescol varchar
+  negociacoescol1 varchar
+  data varchar
+  data_pgto_contrato int [ref: > pagamentos.id]
+  area_hectares varchar
+  inv_sacas_hectares varchar
+  inv_total_sacas varchar
+  preco_liquido_saca varchar
+  total_pedido varchar
+  validacao varchar
+  status_defensivos varchar
+  status_especialidades varchar
+  moeda varchar [ref: > moedas.nome]
+  cultura_vigente varchar [ref: > culturas.nome]
+  pracas_cotacoes_praca_cotacao varchar [ref: > pracas_cotacoes.praca_cotacao]
+}
+
+Table negociacoes_has_produtos {
+  negociacoes_id int [ref: > negociacoes.id]
+  produtos_id int [ref: > produtos.id]
+  volume varchar
+  potencial_produto varchar
+  indexes {
+    (negociacoes_id, produtos_id) [pk]
+  }
+}
+
+Table graos {
+  id int [pk, increment]
+  praca varchar
+  preco varchar
+  vencimento date
+  moedas_nome varchar [ref: > moedas.nome]
+  culturas_nome varchar [ref: > culturas.nome]
+}
+
+Table cache {
+  key varchar [pk]
+  value mediumtext
+  expiration int
+}
+
+Table cache_locks {
+  key varchar [pk]
+  owner varchar
+  expiration int
+}
+
+Table failed_jobs {
+  id bigint [pk, increment]
+  uuid varchar [unique]
+  connection text
+  queue text
+  payload longtext
+  exception longtext
+  failed_at timestamp
+}
+
+Table job_batches {
+  id varchar [pk]
+  name varchar
+  total_jobs int
+  pending_jobs int
+  failed_jobs int
+  failed_job_ids longtext
+  options mediumtext
+  cancelled_at int
+  created_at int
+  finished_at int
+}
+
+Table jobs {
+  id bigint [pk, increment]
+  queue varchar
+  payload longtext
+  attempts tinyint
+  reserved_at int
+  available_at int
+  created_at int
+}
+
+Table migrations {
+  id int [pk, increment]
+  migration varchar
+  batch int
+}
+
+Table password_reset_tokens {
+  email varchar [pk]
+  token varchar
+  created_at timestamp
+}
+
+Table sessions {
+  id varchar [pk]
+  user_id bigint
+  ip_address varchar
+  user_agent text
+  payload longtext
+  last_activity int
+}
