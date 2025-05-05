@@ -16,28 +16,10 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Usuário Vendedor',
-                'email' => 'vendedor@barter.com',
+                'name' => 'Admin',
+                'email' => 'admin@barter.com',
                 'password' => 'barter',
-                'role_name' => 'Vendedor',
-            ],
-            [
-                'name' => 'Usuário Gerente Comercial',
-                'email' => 'gerente.comercial@barter.com',
-                'password' => 'barter',
-                'role_name' => 'Gerente Comercial',
-            ],
-            [
-                'name' => 'Usuário Gerente Nacional',
-                'email' => 'gerente.nacional@barter.com',
-                'password' => 'barter',
-                'role_name' => 'Gerente Nacional',
-            ],
-            [
-                'name' => 'Administrador de Vendas',
-                'email' => 'admin.vendas@barter.com',
-                'password' => 'barter',
-                'role_name' => 'Administrador de Vendas',
+                'role_name' => 'Admin',
             ],
         ];
 
@@ -50,7 +32,7 @@ class UserSeeder extends Seeder
                     [
                         'name' => $userData['name'],
                         'password' => Hash::make($userData['password']),
-                        'roles_id' => $role->id,
+                        'role_id' => $role->id,
                     ]
                 );
             }

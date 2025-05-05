@@ -24,18 +24,18 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreignId('roles_id')
+            $table->foreignId('role_id')
                   ->constrained('roles')
                   ->onUpdate('no action')
                   ->onDelete('no action');
         });
 
         // Tabela de relacionamento vendedor-gerente
-        Schema::create('vendedor_gerente', function (Blueprint $table) {
+        Schema::create('gerente_vendedor', function (Blueprint $table) {
             $table->unsignedBigInteger('vendedor');
             $table->unsignedBigInteger('gerente');
 
-            $table->primary(['vendedor', 'gerente']);
+            $table->primary(['Gerente', 'Vendedor']);
 
             $table->foreign('vendedor')
                   ->references('id')

@@ -11,7 +11,7 @@ Table users { //model ok - migrate ok
   remember_token varchar
   created_at timestamp
   updated_at timestamp
-  roles_id int [ref: > roles.id]
+  role_id int [ref: > roles.id]
   userscol varchar
 }
 
@@ -20,9 +20,9 @@ Table roles { //model ok - migrate ok
   name varchar
 }
 
-Table vendedor_gerente { //model ok - migrate ok
-  vendedor bigint [ref: > users.id]
+Table gerente_vendedor { //model ok - migrate ok
   gerente bigint [ref: > users.id]
+  vendedor bigint [ref: > users.id]
   indexes {
     (vendedor, gerente) [pk]
   }
