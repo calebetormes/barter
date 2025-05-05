@@ -11,8 +11,12 @@ Table users { //model ok - migrate ok
   remember_token varchar
   created_at timestamp
   updated_at timestamp
+<<<<<<< HEAD
   role_id int [ref: > roles.id]
   userscol varchar
+=======
+  roles_id int [ref: > roles.id]
+>>>>>>> 6aa6b6cad132d664880d29bfb71e1cb9f577585c
 }
 
 Table roles { //model ok - migrate ok
